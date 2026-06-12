@@ -1,23 +1,13 @@
 from py_compile import main
-
 from flask import Flask, render_template, request, redirect, url_for, flash
-
 app = Flask(__name__)
-app.secret_key = "taskmanager-secret-key"   # needed for flash messages
-
-# ---------- THE DATA STORE ----------
-# A plain Python list — tasks live here in memory.
-# (Next challenge for the intern: replace with a database!)
+app.secret_key = "taskmanager-secret-key"   
 tasks = []
-
-
-# ---------- ROUTES ----------
 
 @app.route("/")
 def index():
     """Home page — shows all tasks."""
     return render_template("index.html", tasks=tasks)
-
 
 @app.route("/add", methods=["POST"])
 def add_task():
@@ -30,7 +20,6 @@ def add_task():
         flash("Task cannot be empty.", "error")
     return redirect(url_for("index"))
 
-
 @app.route("/toggle/<int:task_id>")
 def toggle_task(task_id):
     """Mark a task done / not done."""
@@ -40,19 +29,16 @@ def toggle_task(task_id):
             break
     return redirect(url_for("index"))
 
-
 @app.route("/delete/<int:task_id>")
 def delete_task(task_id):
     """Remove a task by its id."""
     global tasks
     removed = next((t for t in tasks if t["id"] == task_id), None)
-    tasks = [t for t in tasks if t["id"] != task_id]   # list comprehension
+    tasks = [t for t in tasks if t["id"] != task_id]  
     if removed:
         flash(f'"{removed["text"]}" deleted.', "info")
     return redirect(url_for("index"))
 
-
-# ---------- ENTRY POINT ----------
 if __name__ == "__main__":
     print("\n  Task Manager is running!")
     print("  Open http://127.0.0.1:5000 in your browser.\n")
