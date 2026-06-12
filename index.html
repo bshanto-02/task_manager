@@ -12,7 +12,6 @@
 
   <div class="layout">
 
-    <!-- HEADER -->
     <header class="header">
       <div class="header-inner">
         <div class="logo">
@@ -28,7 +27,6 @@
 
     <main class="main">
 
-      <!-- FLASH MESSAGES -->
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
           <div class="flashes">
@@ -39,7 +37,6 @@
         {% endif %}
       {% endwith %}
 
-      <!-- ADD TASK FORM -->
       <section class="add-section">
         <form action="/add" method="POST" class="add-form">
           <input
@@ -54,7 +51,6 @@
         </form>
       </section>
 
-      <!-- TASK LIST -->
       <section class="list-section">
         {% if tasks %}
           <ul class="task-list">
@@ -74,7 +70,6 @@
             {% endfor %}
           </ul>
 
-          <!-- SUMMARY BAR -->
           <div class="summary-bar">
             {% set done_count = tasks | selectattr('done') | list | length %}
             <span>{{ done_count }} of {{ tasks | length }} done</span>
@@ -84,7 +79,7 @@
           </div>
 
         {% else %}
-          <!-- EMPTY STATE -->
+
           <div class="empty-state">
             <span class="empty-icon">📋</span>
             <p class="empty-title">No tasks yet</p>
@@ -93,7 +88,6 @@
         {% endif %}
       </section>
 
-      <!-- LEARNING NOTE (for intern) -->
       <aside class="learn-note">
         <strong>💡 How this works:</strong>
         Tasks are stored in a Python <code>list</code>.
